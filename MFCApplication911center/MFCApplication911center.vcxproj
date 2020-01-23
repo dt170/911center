@@ -183,14 +183,17 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Employee.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MFCApplication911center.h" />
     <ClInclude Include="MFCApplication911centerDlg.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Employee.cpp" />
     <ClCompile Include="MFCApplication911center.cpp" />
     <ClCompile Include="MFCApplication911centerDlg.cpp" />
     <ClCompile Include="pch.cpp">
@@ -199,6 +202,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Person.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MFCApplication911center.rc" />
