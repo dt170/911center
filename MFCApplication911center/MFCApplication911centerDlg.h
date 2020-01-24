@@ -3,10 +3,10 @@
 //
 
 #pragma once
-
+#include "Event.h"
 
 // CMFCApplication911centerDlg dialog
-class CMFCApplication911centerDlg : public CDialogEx
+class CMFCApplication911centerDlg : public CDialogEx ,public Event
 {
 // Construction
 public:
@@ -31,6 +31,7 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+	
 
 public:
 	afx_msg void OnCbnSelchangeComboEmergency();
@@ -44,12 +45,12 @@ public:
 	CString m_ClientAddress;
 	CString m_ClientReport;
 	CString m_ClientGender;
-	bool gender;
 	CString m_ClientPhone;
 	
 
 	afx_msg void OnBnClickedRadioEventFormMale();
 	afx_msg void OnBnClickedRadioEventFormFemale();
+	//afx_msg void HandleEmergency(Client *temp);
 	CString m_Activity_log;
 	CEdit c_ClientReport;
 	CEdit c_ClientName;
@@ -57,4 +58,10 @@ public:
 	CEdit c_clientCity;
 	CEdit c_ClientPhone;
 	CEdit c_ClientAddress;
+
+	// Inherited via Event
+	virtual bool openEvent();
+	virtual bool CloseEvent();
+	virtual void HandleEvent();
+	void addEventsToComboBox();
 };

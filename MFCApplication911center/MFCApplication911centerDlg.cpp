@@ -8,15 +8,16 @@
 #include "MFCApplication911centerDlg.h"
 #include "afxdialogex.h"
 #include "Client.h"
+#include "Event.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+#include <vector>
 
 
 // CAboutDlg dialog used for App About
 
-class CAboutDlg : public CDialogEx
-{
+class CAboutDlg : public CDialogEx{
 public:
 	CAboutDlg();
 
@@ -60,8 +61,8 @@ CMFCApplication911centerDlg::CMFCApplication911centerDlg(CWnd* pParent /*=nullpt
 	, m_ClientAddress(_T(""))
 	, m_ClientReport(_T(""))
 	, m_ClientPhone(_T(""))
-
-	, m_Activity_log(_T("data"))
+	, m_ClientGender(_T("Unknown"))
+	, m_Activity_log(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -131,14 +132,7 @@ BOOL CMFCApplication911centerDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
-
-	//need to add here all the list of emergency types
-
-	m_strEmergencyList.Format(_T("2222"),0);
-	m_comboBoxControlEmergency.AddString(m_strEmergencyList);
-	m_strEmergencyList.Format(_T("33333"),2);
-	m_comboBoxControlEmergency.AddString(m_strEmergencyList);
-
+	addEventsToComboBox();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -203,6 +197,7 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 	CString str1;
 	int tempPhone=0;
 
+	//get all inboxes (can put it on function)
 	c_ClientReport.GetWindowTextW(m_ClientReport);
 	c_ClientName.GetWindowTextW(m_ClientName);
 	c_ClientLastName.GetWindowTextW(m_ClientLastName);
@@ -211,13 +206,15 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 	m_comboBoxControlEmergency.GetWindowTextW(m_strEmergencyList);
 	//get phone number 
 	c_ClientPhone.GetWindowTextW(m_ClientPhone);
+
 	//turn it into int
 	tempPhone = _tstoi(m_ClientPhone);
+	
 	Client temp(m_ClientName, m_ClientLastName, m_ClientGender,m_ClientAddress,m_ClientCity, tempPhone,m_ClientReport, m_strEmergencyList);
 
 	str1 = temp.getName() +" "+ temp.getLastName()+temp.getGender()+" "+temp.getEmergency();
 
-	m_Activity_log.SetString(str1);
+	m_Activity_log.SetString(str1); // update the activity log . 
 	UpdateData(FALSE); // clear all texts 
 	
 	// TODO: Add your control notification handler code here
@@ -233,4 +230,40 @@ void CMFCApplication911centerDlg::OnBnClickedRadioEventFormMale(){
 void CMFCApplication911centerDlg::OnBnClickedRadioEventFormFemale()
 {
 	m_ClientGender = "Female";
+}
+
+bool CMFCApplication911centerDlg::openEvent(){
+
+	return false;
+}
+
+bool CMFCApplication911centerDlg::CloseEvent()
+{
+	return false;
+}
+
+void CMFCApplication911centerDlg::HandleEvent()
+{
+
+}
+
+//adding all events to combobox 
+void CMFCApplication911centerDlg::addEventsToComboBox()
+{
+	//need to add here all the list of emergency types
+	vector<CString> temp;
+	temp.push_back(_T("Robbery"));
+	temp.push_back(_T("Fire"));
+	temp.push_back(_T("Event with casualties"));
+	temp.push_back(_T("Injurie"));
+	temp.push_back(_T("Smoke in a building"));
+	temp.push_back(_T("Car crash"));
+	temp.push_back(_T("Homicede"));
+	temp.push_back(_T("Animal Rescue"));
+
+	for (int i = 0; i<temp.size(); i++) {
+		m_strEmergencyList.Format(temp[i], i);
+		m_comboBoxControlEmergency.AddString(m_strEmergencyList);
+	}
+
 }
