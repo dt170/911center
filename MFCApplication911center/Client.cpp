@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "Client.h"
 
-Client::Client(CString name, CString lastname, CString gender, CString address, CString city, int phone, CString report):Employee(name,lastname,gender,address,city,phone)
+Client::Client(CString name, CString lastname, CString gender, CString address, CString city, int phone, CString report,CString emergency):Employee(name,lastname,gender,address,city,phone)
 {
-
+	setReport(report);
+	setEmergency(emergency);
 }
 
 
@@ -17,7 +18,17 @@ void Client::setReport(CString temp)
 	this->report = temp;
 }
 
+void Client::setEmergency(CString temp)
+{
+	this->emergency = temp;
+}
+
 CString Client::getReport() const
 {
 	return report;
+}
+
+CString Client::getEmergency() const
+{
+	return emergency;
 }

@@ -43,7 +43,18 @@ public:
 	CString m_ClientCity;
 	CString m_ClientAddress;
 	CString m_ClientReport;
-	int m_ClientPhone;
+	CString m_ClientGender;
+	bool gender;
+	CString m_ClientPhone;
 	
 
+	afx_msg void OnBnClickedRadioEventFormMale();
+	afx_msg void OnBnClickedRadioEventFormFemale();
+	CString m_Activity_log;
+	CEdit c_ClientReport;
+	CEdit c_ClientName;
+	CEdit c_ClientLastName;
+	CEdit c_clientCity;
+	CEdit c_ClientPhone;
+	CEdit c_ClientAddress;
 };

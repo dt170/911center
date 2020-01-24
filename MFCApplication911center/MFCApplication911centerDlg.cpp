@@ -59,8 +59,9 @@ CMFCApplication911centerDlg::CMFCApplication911centerDlg(CWnd* pParent /*=nullpt
 	, m_ClientCity(_T(""))
 	, m_ClientAddress(_T(""))
 	, m_ClientReport(_T(""))
-	, m_ClientPhone(__int8())
+	, m_ClientPhone(_T(""))
 
+	, m_Activity_log(_T("data"))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -77,6 +78,13 @@ void CMFCApplication911centerDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_CALLER_REPORT, m_ClientReport);
 	DDX_Text(pDX, IDC_EDIT6, m_ClientPhone);
 
+	DDX_Text(pDX, IDC_ACTICITY_LOG, m_Activity_log);
+	DDX_Control(pDX, IDC_CALLER_REPORT, c_ClientReport);
+	DDX_Control(pDX, IDC_CALLER_NAME, c_ClientName);
+	DDX_Control(pDX, IDC_CALLER_LAST_NAME, c_ClientLastName);
+	DDX_Control(pDX, IDC_CALLER_CITY, c_clientCity);
+	DDX_Control(pDX, IDC_EDIT6, c_ClientPhone);
+	DDX_Control(pDX, IDC_CALLER_ADDRESS, c_ClientAddress);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
@@ -86,6 +94,8 @@ BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_COMBO_EMERGENCY_LIST, &CMFCApplication911centerDlg::OnCbnSelchangeComboEmergency)
 	ON_BN_CLICKED(IDC_CALLER_BUTTON_START, &CMFCApplication911centerDlg::OnBnClickedCallerButtonStart)
 
+	ON_BN_CLICKED(IDC_RADIO1, &CMFCApplication911centerDlg::OnBnClickedRadioEventFormMale)
+	ON_BN_CLICKED(IDC_RADIO2, &CMFCApplication911centerDlg::OnBnClickedRadioEventFormFemale)
 END_MESSAGE_MAP()
 
 
@@ -124,7 +134,9 @@ BOOL CMFCApplication911centerDlg::OnInitDialog()
 
 	//need to add here all the list of emergency types
 
-	m_strEmergencyList.Format(_T("dfdsf"),0);
+	m_strEmergencyList.Format(_T("2222"),0);
+	m_comboBoxControlEmergency.AddString(m_strEmergencyList);
+	m_strEmergencyList.Format(_T("33333"),2);
 	m_comboBoxControlEmergency.AddString(m_strEmergencyList);
 
 
@@ -183,13 +195,42 @@ HCURSOR CMFCApplication911centerDlg::OnQueryDragIcon()
 void CMFCApplication911centerDlg::OnCbnSelchangeComboEmergency(){
 	// TODO: Add your control notification handler code here
 	m_comboBoxControlEmergency.GetLBText(m_comboBoxControlEmergency.GetCurSel(), m_strEmergencyList);
-	UpdateData(FALSE);
+	
 }
 
 
 void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
-	Client temp(m_ClientName, m_ClientLastName, m_ClientLastName,m_ClientAddress,m_ClientCity, m_ClientPhone,m_ClientReport);
+	CString str1;
+	int tempPhone=0;
 
+	c_ClientReport.GetWindowTextW(m_ClientReport);
+	c_ClientName.GetWindowTextW(m_ClientName);
+	c_ClientLastName.GetWindowTextW(m_ClientLastName);
+	c_clientCity.GetWindowTextW(m_ClientCity);
+	c_ClientAddress.GetWindowTextW(m_ClientAddress);
+	m_comboBoxControlEmergency.GetWindowTextW(m_strEmergencyList);
+	//get phone number 
+	c_ClientPhone.GetWindowTextW(m_ClientPhone);
+	//turn it into int
+	tempPhone = _tstoi(m_ClientPhone);
+	Client temp(m_ClientName, m_ClientLastName, m_ClientGender,m_ClientAddress,m_ClientCity, tempPhone,m_ClientReport, m_strEmergencyList);
+
+	str1 = temp.getName() +" "+ temp.getLastName()+temp.getGender()+" "+temp.getEmergency();
+
+	m_Activity_log.SetString(str1);
+	UpdateData(FALSE); // clear all texts 
+	
 	// TODO: Add your control notification handler code here
 }
 
+
+
+void CMFCApplication911centerDlg::OnBnClickedRadioEventFormMale(){
+	m_ClientGender = "Male";
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedRadioEventFormFemale()
+{
+	m_ClientGender = "Female";
+}
