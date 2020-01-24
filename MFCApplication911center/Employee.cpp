@@ -3,7 +3,7 @@
 
 
 //c'tor
-Employee::Employee(string name, string lastname, string gender, string address, string city, int phone):Person(name,lastname,gender){
+Employee::Employee(CString name, CString lastname, CString gender, CString address, CString city, int phone):Person(name,lastname,gender){
 
 	
 	setAddress(address);
@@ -16,11 +16,11 @@ Employee::~Employee()
 {
 }
 
-void Employee::setAddress(string temp){
+void Employee::setAddress(CString temp){
 	this->address = temp;
 }
 
-void Employee::setCity(string temp){
+void Employee::setCity(CString temp){
 	this->city = temp;
 }
 
@@ -29,10 +29,10 @@ void Employee::setPhone(int temp){
 	this->phone = temp;
 }
 
-string Employee::getAddress() const{
+CString Employee::getAddress() const{
 	return address;
 }
 
-string Employee::getCity() const{
+CString Employee::getCity() const{
 	return city;
 }

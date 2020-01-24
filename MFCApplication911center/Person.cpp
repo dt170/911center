@@ -4,7 +4,7 @@
 
 
 //c'tor
-Person::Person(string name, string lastname, string gender)
+Person::Person(CString name, CString lastname, CString gender)
 {
 	setName(name);
 	setLastName(lastname);
@@ -16,28 +16,28 @@ Person::~Person()
 {
 }
 
-void Person::setName(string str){
+void Person::setName(CString str){
 	this->name = str;
 }
 
-void Person::setLastName(string str){
+void Person::setLastName(CString str){
 	this->lastname = str;
 }
 
-void Person::setGender(string str){
+void Person::setGender(CString str){
 	this->gender = str;
 }
 
-string Person::getLastName() const{
+CString Person::getLastName() const{
 	return lastname;
 }
 
-string Person::getGender() const
+CString Person::getGender() const
 {
 	return gender;
 }
 
-string Person::getName() const
+CString Person::getName() const
 {
 	return name;
 }

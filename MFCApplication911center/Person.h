@@ -7,19 +7,19 @@ using namespace std;
 class Person{
 
 public: 
-	Person(string name ,string lastname,string gender);
+	Person(CString name , CString lastname, CString gender);
 	virtual ~Person();
-	void setName(string str);
-	void setLastName(string str);
-	void setGender(string str);
+	void setName(CString str);
+	void setLastName(CString str);
+	void setGender(CString str);
 
-	 string getLastName()const;
-	 string getGender()const;
-	 string getName()const;
+	CString getLastName()const;
+	CString getGender()const;
+	CString getName()const;
 
 protected:
-	string name, lastname;
-	string gender;
+	CString name, lastname;
+	CString gender;
 };
 #endif // !PERSON_H
 

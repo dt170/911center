@@ -1,11 +1,9 @@
 #include "pch.h"
 #include "Policeman.h"
 
-Policeman::Policeman(string name, string lastname, string gender, string address, string city, int phone, int badegeNum):Employee(name,lastname,gender,address,city,phone){
+Policeman::Policeman(CString name, CString lastname, CString gender, CString address, CString city, int phone, int badegeNum):Employee(name,lastname,gender,address,city,phone){
 
-	
-
-
+	setBadgeNumber(badegeNum);
 }
 
 void Policeman::setBadgeNumber(int temp)

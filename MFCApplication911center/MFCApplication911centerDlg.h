@@ -31,4 +31,19 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+
+public:
+	afx_msg void OnCbnSelchangeComboEmergency();
+	afx_msg void OnBnClickedCallerButtonStart();
+
+	CComboBox m_comboBoxControlEmergency;
+	CString m_strEmergencyList;
+	CString m_ClientName;
+	CString m_ClientLastName;
+	CString m_ClientCity;
+	CString m_ClientAddress;
+	CString m_ClientReport;
+	int m_ClientPhone;
+	
+
 };

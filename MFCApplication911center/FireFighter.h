@@ -4,7 +4,7 @@
 
 class FireFighter:public Employee{
 public:
-	FireFighter(string name,string lastname,string gender,string address,string city,int phone);
+	FireFighter(CString name, CString lastname, CString gender, CString address, CString city,int phone);
 
 
 

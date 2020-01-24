@@ -3,7 +3,7 @@
 #include "Employee.h"
 class Policeman : public Employee{
 public:
-	Policeman(string name, string lastname,string gender,string address, string city, int phone, int badegeNum);
+	Policeman(CString name, CString lastname, CString gender, CString address, CString city, int phone, int badegeNum);
 	void setBadgeNumber(int temp);
 	int getBadgeNumber()const;
 

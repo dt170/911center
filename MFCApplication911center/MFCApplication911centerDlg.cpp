@@ -7,7 +7,7 @@
 #include "MFCApplication911center.h"
 #include "MFCApplication911centerDlg.h"
 #include "afxdialogex.h"
-
+#include "Client.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -31,6 +31,7 @@ public:
 // Implementation
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -52,6 +53,14 @@ END_MESSAGE_MAP()
 
 CMFCApplication911centerDlg::CMFCApplication911centerDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MFCAPPLICATION911CENTER_DIALOG, pParent)
+	, m_strEmergencyList(_T(""))
+	, m_ClientName(_T(""))
+	, m_ClientLastName(_T(""))
+	, m_ClientCity(_T(""))
+	, m_ClientAddress(_T(""))
+	, m_ClientReport(_T(""))
+	, m_ClientPhone(__int8())
+
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -59,12 +68,24 @@ CMFCApplication911centerDlg::CMFCApplication911centerDlg(CWnd* pParent /*=nullpt
 void CMFCApplication911centerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_COMBO_EMERGENCY_LIST, m_comboBoxControlEmergency);
+	DDX_CBString(pDX, IDC_COMBO_EMERGENCY_LIST, m_strEmergencyList);
+	DDX_Text(pDX, IDC_CALLER_NAME, m_ClientName);
+	DDX_Text(pDX, IDC_CALLER_LAST_NAME, m_ClientLastName);
+	DDX_Text(pDX, IDC_CALLER_CITY, m_ClientCity);
+	DDX_Text(pDX, IDC_CALLER_ADDRESS, m_ClientAddress);
+	DDX_Text(pDX, IDC_CALLER_REPORT, m_ClientReport);
+	DDX_Text(pDX, IDC_EDIT6, m_ClientPhone);
+
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_CBN_SELCHANGE(IDC_COMBO_EMERGENCY_LIST, &CMFCApplication911centerDlg::OnCbnSelchangeComboEmergency)
+	ON_BN_CLICKED(IDC_CALLER_BUTTON_START, &CMFCApplication911centerDlg::OnBnClickedCallerButtonStart)
+
 END_MESSAGE_MAP()
 
 
@@ -100,6 +121,12 @@ BOOL CMFCApplication911centerDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
 	// TODO: Add extra initialization here
+
+	//need to add here all the list of emergency types
+
+	m_strEmergencyList.Format(_T("dfdsf"),0);
+	m_comboBoxControlEmergency.AddString(m_strEmergencyList);
+
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
@@ -149,5 +176,20 @@ void CMFCApplication911centerDlg::OnPaint()
 HCURSOR CMFCApplication911centerDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
+}
+
+
+
+void CMFCApplication911centerDlg::OnCbnSelchangeComboEmergency(){
+	// TODO: Add your control notification handler code here
+	m_comboBoxControlEmergency.GetLBText(m_comboBoxControlEmergency.GetCurSel(), m_strEmergencyList);
+	UpdateData(FALSE);
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
+	Client temp(m_ClientName, m_ClientLastName, m_ClientLastName,m_ClientAddress,m_ClientCity, m_ClientPhone,m_ClientReport);
+
+	// TODO: Add your control notification handler code here
 }
 

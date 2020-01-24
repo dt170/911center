@@ -183,7 +183,9 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Client.h" />
     <ClInclude Include="Employee.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="FireFighter.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MFCApplication911center.h" />
@@ -196,6 +198,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="Employee.cpp" />
     <ClCompile Include="FireFighter.cpp" />
     <ClCompile Include="MFCApplication911center.cpp" />

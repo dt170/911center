@@ -5,16 +5,16 @@
 
 class Employee : public Person{
 public:
-	Employee(string name, string lastname, string gender, string address, string city, int phone);
+	Employee(CString name, CString lastname, CString gender, CString address, CString city, int phone);
 	virtual ~Employee();
-	void setAddress(string temp);
-	void setCity(string temp);
+	void setAddress(CString temp);
+	void setCity(CString temp);
 	void setPhone(int temp);
 
-	string getAddress()const;
-	string getCity()const;
+	CString getAddress()const;
+	CString getCity()const;
 protected:
-	string address, city, job;
+	CString address, city, job;
 	int phone;
 
 
