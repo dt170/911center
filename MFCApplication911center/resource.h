@@ -28,6 +28,7 @@
 #define IDC_CALLER_REPORT               1018
 #define IDC_CALLER_BUTTON_START         1019
 #define IDC_RADIO2                      1020
+#define IDC_E                           1021
 #define IDC_RADIO3                      1021
 #define IDC_RADIO4                      1022
 

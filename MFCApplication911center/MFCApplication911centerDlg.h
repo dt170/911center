@@ -36,7 +36,21 @@ protected:
 public:
 	afx_msg void OnCbnSelchangeComboEmergency();
 	afx_msg void OnBnClickedCallerButtonStart();
+	afx_msg void OnBnClickedRadioEventFormMale();
+	afx_msg void OnBnClickedRadioEventFormFemale();
+	afx_msg void OnBnClickedRadioPolice();
+	afx_msg void OnBnClickedRadioFireman();
+	afx_msg void OnBnClickedRadioParamedic();
+	afx_msg void OnBnClickedRadioEmployeeMale();
+	afx_msg void OnBnClickedRadioEmployeeFemale();
+	void clearTextBoxOfClient();
+	// Inherited via Event
+	virtual bool openEvent();
+	virtual bool CloseEvent();
+	virtual void HandleEvent(CString event);
+	void addEventsToComboBox();
 
+	//all belong to caller
 	CComboBox m_comboBoxControlEmergency;
 	CString m_strEmergencyList;
 	CString m_ClientName;
@@ -45,27 +59,22 @@ public:
 	CString m_ClientAddress;
 	CString m_ClientReport;
 	CString m_ClientGender;
-	CString m_ClientPhone;
-	
-
-	afx_msg void OnBnClickedRadioEventFormMale();
-	afx_msg void OnBnClickedRadioEventFormFemale();
-	//afx_msg void HandleEmergency(Client *temp);
-	CString m_Activity_log;
+    CString m_ClientPhone;
+	//cedit of caller
 	CEdit c_ClientReport;
 	CEdit c_ClientName;
 	CEdit c_ClientLastName;
 	CEdit c_clientCity;
 	CEdit c_ClientPhone;
 	CEdit c_ClientAddress;
+
+	CString m_EmployeeJob;
+	CString m_EmployeeGender;
+
+	//afx_msg void HandleEmergency(Client *temp);
+	CString m_Activity_log;
 	CArray <CString, CString> strActivityDisplayLog;
-
-	// Inherited via Event
-	virtual bool openEvent();
-	virtual bool CloseEvent();
-	virtual void HandleEvent(CString event);
-	void addEventsToComboBox();
-
 private:
 	int clientsNumber=0;
+
 };

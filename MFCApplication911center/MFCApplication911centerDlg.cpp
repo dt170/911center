@@ -33,7 +33,6 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedRadioPolice();
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -46,7 +45,6 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
-	ON_BN_CLICKED(IDC_RADIO_POLICE, &CAboutDlg::OnBnClickedRadioPolice)
 END_MESSAGE_MAP()
 
 
@@ -62,6 +60,8 @@ CMFCApplication911centerDlg::CMFCApplication911centerDlg(CWnd* pParent /*=nullpt
 	, m_ClientCity(_T(""))
 	, m_ClientAddress(_T(""))
 	, m_ClientReport(_T(""))
+	, m_EmployeeJob(_T(""))
+	, m_EmployeeGender(_T(""))
 	, m_ClientPhone(_T(""))
 	, m_ClientGender(_T("Unknown"))
 	, m_Activity_log(_T(""))
@@ -99,6 +99,11 @@ BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
 
 	ON_BN_CLICKED(IDC_RADIO1, &CMFCApplication911centerDlg::OnBnClickedRadioEventFormMale)
 	ON_BN_CLICKED(IDC_RADIO2, &CMFCApplication911centerDlg::OnBnClickedRadioEventFormFemale)
+	ON_BN_CLICKED(IDC_RADIO_POLICE, &CMFCApplication911centerDlg::OnBnClickedRadioPolice)
+	ON_BN_CLICKED(IDC_RADIO_FIREMAN, &CMFCApplication911centerDlg::OnBnClickedRadioFireman)
+	ON_BN_CLICKED(IDC_RADIO_PARAMEDIC, &CMFCApplication911centerDlg::OnBnClickedRadioParamedic)
+	ON_BN_CLICKED(IDC_RADIO3, &CMFCApplication911centerDlg::OnBnClickedRadioEmployeeMale)
+	ON_BN_CLICKED(IDC_RADIO4, &CMFCApplication911centerDlg::OnBnClickedRadioEmployeeFemale)
 END_MESSAGE_MAP()
 
 
@@ -216,8 +221,9 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 				m_Activity_log.Append(strActivityDisplayLog.GetAt(i) + L"\r" + "\n");
 			}
 		}
+		clearTextBoxOfClient();
 		UpdateData(FALSE); // clear all texts 
-	
+		 
 	// TODO: Add your control notification handler code here
 }
 
@@ -253,8 +259,8 @@ bool CMFCApplication911centerDlg::openEvent(){
 	return true;
 }
 
-bool CMFCApplication911centerDlg::CloseEvent()
-{
+bool CMFCApplication911centerDlg::CloseEvent(){
+
 	return false;
 }
 
@@ -287,7 +293,39 @@ void CMFCApplication911centerDlg::addEventsToComboBox(){
 }
 
 
-void CAboutDlg::OnBnClickedRadioPolice(){
 
-	
+void CMFCApplication911centerDlg::OnBnClickedRadioPolice(){
+	m_EmployeeJob = "Police";
+
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedRadioFireman(){
+	m_EmployeeJob = "Fire fighter";
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedRadioParamedic(){
+	m_EmployeeJob = "Paramedic";
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedRadioEmployeeMale(){
+	m_EmployeeGender = "Male";
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedRadioEmployeeFemale(){
+	m_EmployeeGender = "Female";
+}
+
+void CMFCApplication911centerDlg::clearTextBoxOfClient(){
+	//get all inboxes (can put it on function)
+	 m_ClientReport.SetString(_T(""));
+	 m_ClientName.SetString(_T(""));
+     m_ClientLastName.SetString(_T(""));
+     m_ClientCity.SetString(_T(""));
+     m_ClientAddress.SetString(_T(""));	
+	 m_ClientPhone.SetString(_T(""));
+	 m_ClientGender.SetString(_T(""));
 }
