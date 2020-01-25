@@ -33,6 +33,7 @@ public:
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
+	afx_msg void OnBnClickedRadioPolice();
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -45,6 +46,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_RADIO_POLICE, &CAboutDlg::OnBnClickedRadioPolice)
 END_MESSAGE_MAP()
 
 
@@ -195,27 +197,26 @@ void CMFCApplication911centerDlg::OnCbnSelchangeComboEmergency(){
 
 void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 	CString str1;
-	int tempPhone=0;
+	int tempPhone = 0;
+		//turn it into int
+		tempPhone = _tstoi(m_ClientPhone);
+		if (openEvent()) {
+			m_Activity_log.SetString(L""); // clear the error if needed
+			Client temp(m_ClientName, m_ClientLastName, m_ClientGender, m_ClientAddress, m_ClientCity, tempPhone, m_ClientReport, m_strEmergencyList);
+			strActivityDisplayLog.Add(L"***********************ACTIVE***********************");
+		
+			strActivityDisplayLog.Add(L"Name: "+temp.getName());
+			strActivityDisplayLog.Add(L"Last Name: "+temp.getLastName());
+			strActivityDisplayLog.Add(L"Gender: "+temp.getGender());
+			strActivityDisplayLog.Add(L"Emergency: "+temp.getEmergency());
+			strActivityDisplayLog.Add(L"----------------------------------------------------");
 
-	//get all inboxes (can put it on function)
-	c_ClientReport.GetWindowTextW(m_ClientReport);
-	c_ClientName.GetWindowTextW(m_ClientName);
-	c_ClientLastName.GetWindowTextW(m_ClientLastName);
-	c_clientCity.GetWindowTextW(m_ClientCity);
-	c_ClientAddress.GetWindowTextW(m_ClientAddress);
-	m_comboBoxControlEmergency.GetWindowTextW(m_strEmergencyList);
-	//get phone number 
-	c_ClientPhone.GetWindowTextW(m_ClientPhone);
-
-	//turn it into int
-	tempPhone = _tstoi(m_ClientPhone);
-	
-	Client temp(m_ClientName, m_ClientLastName, m_ClientGender,m_ClientAddress,m_ClientCity, tempPhone,m_ClientReport, m_strEmergencyList);
-
-	str1 = temp.getName() +" "+ temp.getLastName()+temp.getGender()+" "+temp.getEmergency();
-
-	m_Activity_log.SetString(str1); // update the activity log . 
-	UpdateData(FALSE); // clear all texts 
+			strActivityDisplayLog.Add(L"***********************CLOSED***********************");
+			for (int i = 0; i < strActivityDisplayLog.GetSize(); i++) {
+				m_Activity_log.Append(strActivityDisplayLog.GetAt(i) + L"\r" + "\n");
+			}
+		}
+		UpdateData(FALSE); // clear all texts 
 	
 	// TODO: Add your control notification handler code here
 }
@@ -227,14 +228,29 @@ void CMFCApplication911centerDlg::OnBnClickedRadioEventFormMale(){
 }
 
 
-void CMFCApplication911centerDlg::OnBnClickedRadioEventFormFemale()
-{
+void CMFCApplication911centerDlg::OnBnClickedRadioEventFormFemale(){
 	m_ClientGender = "Female";
 }
 
 bool CMFCApplication911centerDlg::openEvent(){
+	CString str1;
+	int tempPhone = 0;
 
-	return false;
+	//get all inboxes (can put it on function)
+	c_ClientReport.GetWindowTextW(m_ClientReport);
+	c_ClientName.GetWindowTextW(m_ClientName);
+	c_ClientLastName.GetWindowTextW(m_ClientLastName);
+	c_clientCity.GetWindowTextW(m_ClientCity);
+	c_ClientAddress.GetWindowTextW(m_ClientAddress);
+	m_comboBoxControlEmergency.GetWindowTextW(m_strEmergencyList);
+	//get phone number 
+	c_ClientPhone.GetWindowTextW(m_ClientPhone);
+
+	if (m_ClientName == "" | m_ClientLastName == "" | m_ClientCity == "" | m_ClientAddress == "" | m_strEmergencyList == "" | m_ClientPhone == "") {
+		m_Activity_log.SetString(L"Error! make sure to fill all the details!"); // set error msg if not all information entered
+		return false;
+	}
+	return true;
 }
 
 bool CMFCApplication911centerDlg::CloseEvent()
@@ -242,14 +258,16 @@ bool CMFCApplication911centerDlg::CloseEvent()
 	return false;
 }
 
-void CMFCApplication911centerDlg::HandleEvent()
-{
+void CMFCApplication911centerDlg::HandleEvent(CString event){
+	if (event.Compare(_T("Robbery"))) {
+
+	}
+	
 
 }
 
 //adding all events to combobox 
-void CMFCApplication911centerDlg::addEventsToComboBox()
-{
+void CMFCApplication911centerDlg::addEventsToComboBox(){
 	//need to add here all the list of emergency types
 	vector<CString> temp;
 	temp.push_back(_T("Robbery"));
@@ -266,4 +284,10 @@ void CMFCApplication911centerDlg::addEventsToComboBox()
 		m_comboBoxControlEmergency.AddString(m_strEmergencyList);
 	}
 
+}
+
+
+void CAboutDlg::OnBnClickedRadioPolice(){
+
+	
 }

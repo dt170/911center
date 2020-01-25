@@ -58,10 +58,14 @@ public:
 	CEdit c_clientCity;
 	CEdit c_ClientPhone;
 	CEdit c_ClientAddress;
+	CArray <CString, CString> strActivityDisplayLog;
 
 	// Inherited via Event
 	virtual bool openEvent();
 	virtual bool CloseEvent();
-	virtual void HandleEvent();
+	virtual void HandleEvent(CString event);
 	void addEventsToComboBox();
+
+private:
+	int clientsNumber=0;
 };
