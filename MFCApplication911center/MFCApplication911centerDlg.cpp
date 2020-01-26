@@ -233,15 +233,16 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 		if (openEvent()) {
 			m_Activity_log.SetString(L""); // clear the error if needed
 			Client temp(m_ClientName, m_ClientLastName, m_ClientGender, m_ClientAddress, m_ClientCity, tempPhone, m_ClientReport, m_strEmergencyList,CLIENT);
-			strActivityDisplayLog.Add(L"***********************ACTIVE***********************");
+			strActivityDisplayLog.Add(L"***********************ACTIVE**********************");
 		
 			strActivityDisplayLog.Add(L"Name: "+temp.getName());
 			strActivityDisplayLog.Add(L"Last Name: "+temp.getLastName());
 			strActivityDisplayLog.Add(L"Gender: "+temp.getGender());
 			strActivityDisplayLog.Add(L"Emergency: "+temp.getEmergency());
-			strActivityDisplayLog.Add(L"----------------------------------------------------");
-
-			strActivityDisplayLog.Add(L"***********************CLOSED***********************");
+			strActivityDisplayLog.Add(L"-------------------------------------------------------------------------");
+			strActivityDisplayLog.Add(L"*******************HANDLE-EVENT******************");
+			HandleEvent(temp.getEmergency());
+			strActivityDisplayLog.Add(L"***********************CLOSED********************");
 			for (int i = 0; i < strActivityDisplayLog.GetSize(); i++) {
 				m_Activity_log.Append(strActivityDisplayLog.GetAt(i) + L"\r" + "\n");
 			}
@@ -293,12 +294,55 @@ bool CMFCApplication911centerDlg::CloseEvent(){
 	return false;
 }
 
-void CMFCApplication911centerDlg::HandleEvent(CString event){
-
-	if (event.Compare(_T("Robbery"))) {
-
+void CMFCApplication911centerDlg::HandleEvent(CString eventStr){
+	int index = 0;
+	if (!PoliceOnShift && !ParamedicOnShift && !FireFighterOnShift) {
+		strActivityDisplayLog.Add(L"YOU MUST ADD: Paramedic , Police officer and Firefighter.");
+		return;
 	}
-	
+	if (eventStr=="Robbery"| eventStr =="Homicede") {
+			while (arrOfEmployee[index]->getKind() != POLICE) {
+				index++;
+			}
+			strActivityDisplayLog.Add(L"Officer " + arrOfEmployee[index]->getName() + L" Answered the call !");
+		}
+	else if (eventStr == "Fire"| eventStr =="Animal Rescue" | eventStr=="Smoke in a building") {
+		while (arrOfEmployee[index]->getKind() != FIREFIGHTER) {
+			index++;
+		}
+		strActivityDisplayLog.Add(L"FireFighter " + arrOfEmployee[index]->getName() + L" Answered the call !");
+	}
+	else if (eventStr == "Event with casualties" | eventStr == "Injurie") {
+		while (arrOfEmployee[index]->getKind() != PARAMEDIC) {
+			index++;
+		}
+		strActivityDisplayLog.Add(L"Paramedic " + arrOfEmployee[index]->getName() + L" Answered the call !");
+		if (eventStr == "Event with casualties") {
+			index = 0;
+			while (arrOfEmployee[index]->getKind() != POLICE) {
+				index++;
+			}
+			strActivityDisplayLog.Add(L"Officer " + arrOfEmployee[index]->getName() + L" Answered the call !");
+		}
+	}
+	else if (eventStr == "Car crash") {
+		while (arrOfEmployee[index]->getKind() != PARAMEDIC) {
+			index++;
+		}
+		strActivityDisplayLog.Add(L"Paramedic " + arrOfEmployee[index]->getName() + L" Answered the call !");
+			index = 0;
+			while (arrOfEmployee[index]->getKind() != POLICE) {
+				index++;
+			}
+			strActivityDisplayLog.Add(L"Officer " + arrOfEmployee[index]->getName() + L" Answered the call !");
+
+			index = 0;
+			while (arrOfEmployee[index]->getKind() != FIREFIGHTER) {
+				index++;
+			}
+			strActivityDisplayLog.Add(L"FireFighter " + arrOfEmployee[index]->getName() + L" Answered the call !");
+		
+	}
 
 }
 
@@ -306,14 +350,14 @@ void CMFCApplication911centerDlg::HandleEvent(CString event){
 void CMFCApplication911centerDlg::addEventsToComboBox(){
 	//need to add here all the list of emergency types
 	vector<CString> temp;
-	temp.push_back(_T("Robbery"));
-	temp.push_back(_T("Fire"));
-	temp.push_back(_T("Event with casualties"));
-	temp.push_back(_T("Injurie"));
-	temp.push_back(_T("Smoke in a building"));
-	temp.push_back(_T("Car crash"));
-	temp.push_back(_T("Homicede"));
-	temp.push_back(_T("Animal Rescue"));
+	temp.push_back(_T("Robbery")); // police //
+	temp.push_back(_T("Fire"));   //fire fighters//
+	temp.push_back(_T("Event with casualties")); // paramedics +police//
+	temp.push_back(_T("Injurie")); // paramedics//
+	temp.push_back(_T("Smoke in a building")); //fire fighters//
+	temp.push_back(_T("Car crash")); //fire fighters + police
+	temp.push_back(_T("Homicede")); // police//
+	temp.push_back(_T("Animal Rescue"));//fire fighters//
 
 	for (int i = 0; i<temp.size(); i++) {
 		m_strEmergencyList.Format(temp[i], i);
@@ -410,12 +454,12 @@ void CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd(){
 	else {
 		m_EmployeeOnShift.SetString(L"");
 		if (m_EmployeeJob == "FireFighter") {
-			FireManOnShift = true;
+			FireFighterOnShift = true;
 			arrOfEmployee.push_back(new FireFighter(m_EmployeeName, m_EmployeeLastName,m_EmployeeGender,m_EmployeeAddress,m_EmployeeCity,phone, FIREFIGHTER));
 		}
 		if (m_EmployeeJob == "Police"){
 			PoliceOnShift = true;
-			arrOfEmployee.push_back(new Policeman(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, phone, POLICE));
+			arrOfEmployee.push_back(new Policeman(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, phone,POLICE));
 		}
 		if (m_EmployeeJob == "Paramedic") {
 			ParamedicOnShift = true;

@@ -8,10 +8,10 @@
 #include "FireFighter.h"
 #include "Paramedic.h"
 #include "Policeman.h"
-#define POLICE 0
-#define PARAMEDIC 1
-#define FIREFIGHTER 2
-#define CLIENT 3 
+constexpr auto POLICE = 0;
+constexpr auto PARAMEDIC = 1;
+constexpr auto FIREFIGHTER = 2;
+constexpr auto CLIENT = 3 ;
 
 #include <vector>
 
@@ -93,7 +93,7 @@ private:
 	int clientsNumber=0;
 	int employeeNumber=0;
 	bool PoliceOnShift = false;
-	bool FireManOnShift = false;
+	bool FireFighterOnShift = false;
 	bool ParamedicOnShift = false;
 
 public:

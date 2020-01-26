@@ -29,9 +29,9 @@ void Employee::setPhone(int temp){
 	this->phone = temp;
 }
 
-void Employee::setKind(int kind)
+void Employee::setKind(int temp)
 {
-
+	this->kind = temp;
 }
 
 CString Employee::getAddress() const{
