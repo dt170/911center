@@ -4,6 +4,12 @@
 
 #pragma once
 #include "Event.h"
+#include "Client.h"
+#include "FireFighter.h"
+#include "Paramedic.h"
+#include "Policeman.h"
+
+#include <vector>
 
 // CMFCApplication911centerDlg dialog
 class CMFCApplication911centerDlg : public CDialogEx ,public Event
@@ -44,8 +50,12 @@ public:
 	afx_msg void OnBnClickedRadioEmployeeMale();
 	afx_msg void OnBnClickedRadioEmployeeFemale();
 	void clearTextBoxOfClient();
+	void clearTextBoxOfEmployee();
+	bool isTextFieldsOfEmployeeFull();
+	bool isTextFieldsOfClientFull();
 	// Inherited via Event
 	virtual bool openEvent();
+	virtual bool emergencyUnits();
 	virtual bool CloseEvent();
 	virtual void HandleEvent(CString event);
 	void addEventsToComboBox();
@@ -74,7 +84,27 @@ public:
 	//afx_msg void HandleEmergency(Client *temp);
 	CString m_Activity_log;
 	CArray <CString, CString> strActivityDisplayLog;
+	CArray <CString, CString> strOnShiftDisplay;
 private:
 	int clientsNumber=0;
+	int employeeNumber=0;
+	bool PoliceOnShift = false;
+	bool FireManOnShift = false;
+	bool ParamedicOnShift = false;
 
+public:
+	CEdit c_EmployeeName;
+	CString m_EmployeeName;
+	CEdit c_EmployeeLastName;
+	CString m_EmployeeLastName;
+	CString m_EmployeeCity;
+	CEdit c_EmployeeCity;
+	CEdit c_EmployeePhone;
+	CString m_EmployeePhone;
+	CEdit c_EmployeeAddress;
+	CString m_EmployeeAddress;
+	CEdit c_EmployeeOnShift;
+	CString m_EmployeeOnShift;
+	vector<Employee*> arrOfEmployee;
+	afx_msg void OnBnClickedEmployeeButtonAdd();
 };

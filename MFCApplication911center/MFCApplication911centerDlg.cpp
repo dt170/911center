@@ -7,12 +7,11 @@
 #include "MFCApplication911center.h"
 #include "MFCApplication911centerDlg.h"
 #include "afxdialogex.h"
-#include "Client.h"
-#include "Event.h"
+#include <typeinfo>
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-#include <vector>
+
 
 
 // CAboutDlg dialog used for App About
@@ -60,11 +59,17 @@ CMFCApplication911centerDlg::CMFCApplication911centerDlg(CWnd* pParent /*=nullpt
 	, m_ClientCity(_T(""))
 	, m_ClientAddress(_T(""))
 	, m_ClientReport(_T(""))
-	, m_EmployeeJob(_T(""))
-	, m_EmployeeGender(_T(""))
 	, m_ClientPhone(_T(""))
 	, m_ClientGender(_T("Unknown"))
 	, m_Activity_log(_T(""))
+	, m_EmployeeName(_T(""))
+	, m_EmployeeGender(_T(""))
+	, m_EmployeeLastName(_T(""))
+	, m_EmployeeCity(_T(""))
+	, m_EmployeeJob(_T(""))
+	, m_EmployeePhone(_T(""))
+	, m_EmployeeAddress(_T(""))
+	, m_EmployeeOnShift(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -88,6 +93,18 @@ void CMFCApplication911centerDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_CALLER_CITY, c_clientCity);
 	DDX_Control(pDX, IDC_EDIT6, c_ClientPhone);
 	DDX_Control(pDX, IDC_CALLER_ADDRESS, c_ClientAddress);
+	DDX_Control(pDX, IDC_EMPLOYEE_NAME, c_EmployeeName);
+	DDX_Text(pDX, IDC_EMPLOYEE_NAME, m_EmployeeName);
+	DDX_Control(pDX, IDC_EMPLOYEE_LAST_NAME, c_EmployeeLastName);
+	DDX_Text(pDX, IDC_EMPLOYEE_LAST_NAME, m_EmployeeLastName);
+	DDX_Text(pDX, IDC_EMPLOYEE_CITY, m_EmployeeCity);
+	DDX_Control(pDX, IDC_EMPLOYEE_CITY, c_EmployeeCity);
+	DDX_Control(pDX, IDC_EMPLOYEE_PHONE, c_EmployeePhone);
+	DDX_Text(pDX, IDC_EMPLOYEE_PHONE, m_EmployeePhone);
+	DDX_Control(pDX, IDC_EMPLOYEE_ADDRESS, c_EmployeeAddress);
+	DDX_Text(pDX, IDC_EMPLOYEE_ADDRESS, m_EmployeeAddress);
+	DDX_Control(pDX, IDC_EMPLOYEE_ON_SHIFT, c_EmployeeOnShift);
+	DDX_Text(pDX, IDC_EMPLOYEE_ON_SHIFT, m_EmployeeOnShift);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
@@ -104,6 +121,7 @@ BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_RADIO_PARAMEDIC, &CMFCApplication911centerDlg::OnBnClickedRadioParamedic)
 	ON_BN_CLICKED(IDC_RADIO3, &CMFCApplication911centerDlg::OnBnClickedRadioEmployeeMale)
 	ON_BN_CLICKED(IDC_RADIO4, &CMFCApplication911centerDlg::OnBnClickedRadioEmployeeFemale)
+	ON_BN_CLICKED(IDC_EMPLOYEE_BUTTON_ADD, &CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd)
 END_MESSAGE_MAP()
 
 
@@ -249,14 +267,18 @@ bool CMFCApplication911centerDlg::openEvent(){
 	c_clientCity.GetWindowTextW(m_ClientCity);
 	c_ClientAddress.GetWindowTextW(m_ClientAddress);
 	m_comboBoxControlEmergency.GetWindowTextW(m_strEmergencyList);
-	//get phone number 
 	c_ClientPhone.GetWindowTextW(m_ClientPhone);
 
-	if (m_ClientName == "" | m_ClientLastName == "" | m_ClientCity == "" | m_ClientAddress == "" | m_strEmergencyList == "" | m_ClientPhone == "") {
+	if (!isTextFieldsOfClientFull()) {
 		m_Activity_log.SetString(L"Error! make sure to fill all the details!"); // set error msg if not all information entered
 		return false;
 	}
 	return true;
+}
+
+bool CMFCApplication911centerDlg::emergencyUnits(){
+
+	return false;
 }
 
 bool CMFCApplication911centerDlg::CloseEvent(){
@@ -301,7 +323,7 @@ void CMFCApplication911centerDlg::OnBnClickedRadioPolice(){
 
 
 void CMFCApplication911centerDlg::OnBnClickedRadioFireman(){
-	m_EmployeeJob = "Fire fighter";
+	m_EmployeeJob = "FireFighter";
 }
 
 
@@ -328,4 +350,72 @@ void CMFCApplication911centerDlg::clearTextBoxOfClient(){
      m_ClientAddress.SetString(_T(""));	
 	 m_ClientPhone.SetString(_T(""));
 	 m_ClientGender.SetString(_T(""));
+}
+
+void CMFCApplication911centerDlg::clearTextBoxOfEmployee(){
+	     m_EmployeeName.SetString(_T(""));
+		 m_EmployeeGender.SetString(_T(""));
+		 m_EmployeeLastName.SetString(_T(""));
+		 m_EmployeeCity.SetString(_T(""));
+		 m_EmployeeJob.SetString(_T(""));
+		 m_EmployeePhone.SetString(_T(""));
+		 m_EmployeeAddress.SetString(_T(""));
+}
+
+bool CMFCApplication911centerDlg::isTextFieldsOfEmployeeFull(){
+
+	return !(m_EmployeeName == "" |	m_EmployeeGender == "" |	m_EmployeeLastName == "" | 	m_EmployeeCity == "" |	m_EmployeeJob == "" | 	m_EmployeePhone == "" |	m_EmployeeAddress == "");
+		
+}
+
+bool CMFCApplication911centerDlg::isTextFieldsOfClientFull(){
+
+	return  !(m_ClientName == "" | m_ClientLastName == "" | m_ClientCity == "" | m_ClientAddress == "" | m_strEmergencyList == "" | m_ClientPhone == "");
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd(){
+	int phone = 0;
+
+	// get all texts from shift manager
+	c_EmployeeName.GetWindowTextW(m_EmployeeName);
+	c_EmployeeLastName.GetWindowTextW(m_EmployeeLastName);
+	c_EmployeeCity.GetWindowTextW(m_EmployeeCity);
+	c_EmployeeAddress.GetWindowTextW(m_EmployeeAddress);
+	c_EmployeePhone.GetWindowTextW(m_EmployeePhone);
+	c_EmployeeName.GetWindowTextW(m_EmployeeName);
+	phone = _tstoi(m_ClientPhone);
+
+	if (!isTextFieldsOfEmployeeFull()) {
+		m_EmployeeOnShift.SetString(L"Error! make sure to fill all the details!");
+	}
+	else {
+		m_EmployeeOnShift.SetString(L"");
+		if (m_EmployeeJob == "FireFighter") {
+			FireManOnShift = true;
+			arrOfEmployee.push_back(new FireFighter(m_EmployeeName, m_EmployeeLastName,m_EmployeeGender,m_EmployeeAddress,m_EmployeeCity,phone));
+		}
+		if (m_EmployeeJob == "Police"){
+			PoliceOnShift = true;
+			arrOfEmployee.push_back(new Policeman(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, phone,0));
+		}
+		if (m_EmployeeJob == "Paramedic") {
+			ParamedicOnShift = true;
+			arrOfEmployee.push_back(new Paramedic(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, phone));
+		}
+		
+		strOnShiftDisplay.Add(L"*************ADDED-TO-SHIFT**************");
+		strOnShiftDisplay.Add(L"Job: " + m_EmployeeJob);// handle it
+		strOnShiftDisplay.Add(L"Name: " + arrOfEmployee[employeeNumber]->getName());
+		strOnShiftDisplay.Add(L"Last Name: " + arrOfEmployee[employeeNumber]->getLastName());
+		strOnShiftDisplay.Add(L"Gender: " + arrOfEmployee[employeeNumber]->getGender());
+		strOnShiftDisplay.Add(L"******************************************");
+
+		for (int i = 0; i < strOnShiftDisplay.GetSize(); i++) {
+			m_EmployeeOnShift.Append(strOnShiftDisplay.GetAt(i) + L"\r" + "\n");
+		}
+		employeeNumber++;
+	}
+	clearTextBoxOfEmployee();
+	UpdateData(FALSE);
 }
