@@ -62,7 +62,6 @@ public:
 	bool isTextFieldsOfClientFull();
 	// Inherited via Event
 	virtual bool openEvent();
-	virtual bool emergencyUnits();
 	virtual void CloseEvent();
 	virtual void HandleEvent(CString event);
 	void addEventsToComboBox();

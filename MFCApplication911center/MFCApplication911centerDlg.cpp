@@ -284,10 +284,6 @@ bool CMFCApplication911centerDlg::openEvent(){
 	return true;
 }
 
-bool CMFCApplication911centerDlg::emergencyUnits(){
-
-	return false;
-}
 
 void CMFCApplication911centerDlg::CloseEvent(){
 	strActivityDisplayLog.Add(L"***********************CLOSED********************");
