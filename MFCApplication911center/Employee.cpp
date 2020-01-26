@@ -3,13 +3,13 @@
 
 
 //c'tor
-Employee::Employee(CString name, CString lastname, CString gender, CString address, CString city, int phone):Person(name,lastname,gender){
+Employee::Employee(CString name, CString lastname, CString gender, CString address, CString city, int phone,int kind):Person(name,lastname,gender){
 
 	
 	setAddress(address);
 	setCity(city);
 	setPhone(phone);
-
+	setKind(kind);
 }
 
 Employee::~Employee()
@@ -29,10 +29,20 @@ void Employee::setPhone(int temp){
 	this->phone = temp;
 }
 
+void Employee::setKind(int kind)
+{
+
+}
+
 CString Employee::getAddress() const{
 	return address;
 }
 
 CString Employee::getCity() const{
 	return city;
+}
+
+int Employee::getKind() const
+{
+	return kind;
 }

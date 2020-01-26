@@ -232,7 +232,7 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 		tempPhone = _tstoi(m_ClientPhone);
 		if (openEvent()) {
 			m_Activity_log.SetString(L""); // clear the error if needed
-			Client temp(m_ClientName, m_ClientLastName, m_ClientGender, m_ClientAddress, m_ClientCity, tempPhone, m_ClientReport, m_strEmergencyList);
+			Client temp(m_ClientName, m_ClientLastName, m_ClientGender, m_ClientAddress, m_ClientCity, tempPhone, m_ClientReport, m_strEmergencyList,CLIENT);
 			strActivityDisplayLog.Add(L"***********************ACTIVE***********************");
 		
 			strActivityDisplayLog.Add(L"Name: "+temp.getName());
@@ -294,6 +294,7 @@ bool CMFCApplication911centerDlg::CloseEvent(){
 }
 
 void CMFCApplication911centerDlg::HandleEvent(CString event){
+
 	if (event.Compare(_T("Robbery"))) {
 
 	}
@@ -410,15 +411,15 @@ void CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd(){
 		m_EmployeeOnShift.SetString(L"");
 		if (m_EmployeeJob == "FireFighter") {
 			FireManOnShift = true;
-			arrOfEmployee.push_back(new FireFighter(m_EmployeeName, m_EmployeeLastName,m_EmployeeGender,m_EmployeeAddress,m_EmployeeCity,phone));
+			arrOfEmployee.push_back(new FireFighter(m_EmployeeName, m_EmployeeLastName,m_EmployeeGender,m_EmployeeAddress,m_EmployeeCity,phone, FIREFIGHTER));
 		}
 		if (m_EmployeeJob == "Police"){
 			PoliceOnShift = true;
-			arrOfEmployee.push_back(new Policeman(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, phone,0));
+			arrOfEmployee.push_back(new Policeman(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, phone, POLICE));
 		}
 		if (m_EmployeeJob == "Paramedic") {
 			ParamedicOnShift = true;
-			arrOfEmployee.push_back(new Paramedic(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, phone));
+			arrOfEmployee.push_back(new Paramedic(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, phone, PARAMEDIC));
 		}
 		
 		strOnShiftDisplay.Add(L"*************ADDED-TO-SHIFT**************");

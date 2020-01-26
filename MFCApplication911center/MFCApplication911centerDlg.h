@@ -8,6 +8,10 @@
 #include "FireFighter.h"
 #include "Paramedic.h"
 #include "Policeman.h"
+#define POLICE 0
+#define PARAMEDIC 1
+#define FIREFIGHTER 2
+#define CLIENT 3 
 
 #include <vector>
 

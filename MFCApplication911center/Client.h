@@ -8,7 +8,7 @@
 class Client :public Employee{
 
 public:
-	Client(CString name, CString lastname, CString gender, CString address, CString city, int phone, CString report,CString Emergency);
+	Client(CString name, CString lastname, CString gender, CString address, CString city, int phone, CString report,CString Emergency,int kind);
 	virtual ~Client();
 	void setReport(CString temp);
 	void setEmergency(CString temp);

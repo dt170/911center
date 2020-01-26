@@ -5,7 +5,7 @@
 class Paramedic:public Employee{
 
 public:
-	Paramedic(CString name, CString lastname, CString gender, CString address, CString city, int phone);
+	Paramedic(CString name, CString lastname, CString gender, CString address, CString city, int phone,int kind);
 
 
 
