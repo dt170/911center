@@ -219,6 +219,7 @@ HCURSOR CMFCApplication911centerDlg::OnQueryDragIcon()
 
 
 void CMFCApplication911centerDlg::OnCbnSelchangeComboEmergency(){
+	
 	// TODO: Add your control notification handler code here
 	m_comboBoxControlEmergency.GetLBText(m_comboBoxControlEmergency.GetCurSel(), m_strEmergencyList);
 	
@@ -249,8 +250,8 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 		}
 		clearTextBoxOfClient();
 		UpdateData(FALSE); // clear all texts 
-		 
-	// TODO: Add your control notification handler code here
+		m_comboBoxControlEmergency.SetCurSel(-1);// reset the combo box to default 
+	
 }
 
 
@@ -276,7 +277,6 @@ bool CMFCApplication911centerDlg::openEvent(){
 	c_ClientAddress.GetWindowTextW(m_ClientAddress);
 	m_comboBoxControlEmergency.GetWindowTextW(m_strEmergencyList);
 	c_ClientPhone.GetWindowTextW(m_ClientPhone);
-
 	if (!isTextFieldsOfClientFull()) {
 		m_Activity_log.SetString(L"Error! make sure to fill all the details!"); // set error msg if not all information entered
 		return false;
@@ -360,7 +360,7 @@ void CMFCApplication911centerDlg::addEventsToComboBox(){
 		m_strEmergencyList.Format(temp[i], i);
 		m_comboBoxControlEmergency.AddString(m_strEmergencyList);
 	}
-
+	m_comboBoxControlEmergency.SetCueBanner(_T("Pick emergency"));
 }
 
 
@@ -419,6 +419,7 @@ void CMFCApplication911centerDlg::clearTextBoxOfEmployee(){
 		 c_radioParamedic.SetCheck(BST_UNCHECKED);
 		 c_EmployeeMale.SetCheck(BST_UNCHECKED);
 		 c_EmployeeFemale.SetCheck(BST_UNCHECKED);
+		
 }
 
 bool CMFCApplication911centerDlg::isTextFieldsOfEmployeeFull(){
@@ -477,4 +478,5 @@ void CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd(){
 	}
 	clearTextBoxOfEmployee();
 	UpdateData(FALSE);
+	m_comboBoxControlEmergency.SetCurSel(-1); // reset the combo box to default 
 }
