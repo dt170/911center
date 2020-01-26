@@ -298,7 +298,7 @@ void CMFCApplication911centerDlg::CloseEvent(){
 // checking who is answer to the emergency and add him into the activity 
 void CMFCApplication911centerDlg::HandleEvent(CString eventStr){
 	int index = 0;
-	if (!PoliceOnShift && !ParamedicOnShift && !FireFighterOnShift) {
+	if (!PoliceOnShift | !ParamedicOnShift | !FireFighterOnShift) {
 		strActivityDisplayLog.Add(L"YOU MUST ADD: Paramedic , Police officer and Firefighter.");
 		return;
 	}
