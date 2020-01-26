@@ -8,6 +8,8 @@
 #include "FireFighter.h"
 #include "Paramedic.h"
 #include "Policeman.h"
+
+//defines
 constexpr auto POLICE = 0;
 constexpr auto PARAMEDIC = 1;
 constexpr auto FIREFIGHTER = 2;
@@ -53,6 +55,7 @@ public:
 	afx_msg void OnBnClickedRadioParamedic();
 	afx_msg void OnBnClickedRadioEmployeeMale();
 	afx_msg void OnBnClickedRadioEmployeeFemale();
+
 	void clearTextBoxOfClient();
 	void clearTextBoxOfEmployee();
 	bool isTextFieldsOfEmployeeFull();
@@ -60,7 +63,7 @@ public:
 	// Inherited via Event
 	virtual bool openEvent();
 	virtual bool emergencyUnits();
-	virtual bool CloseEvent();
+	virtual void CloseEvent();
 	virtual void HandleEvent(CString event);
 	void addEventsToComboBox();
 

@@ -239,10 +239,10 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 			strActivityDisplayLog.Add(L"Last Name: "+temp.getLastName());
 			strActivityDisplayLog.Add(L"Gender: "+temp.getGender());
 			strActivityDisplayLog.Add(L"Emergency: "+temp.getEmergency());
-			strActivityDisplayLog.Add(L"-------------------------------------------------------------------------");
+		//	strActivityDisplayLog.Add(L"-------------------------------------------------------------------------");
 			strActivityDisplayLog.Add(L"*******************HANDLE-EVENT******************");
 			HandleEvent(temp.getEmergency());
-			strActivityDisplayLog.Add(L"***********************CLOSED********************");
+			CloseEvent();
 			for (int i = 0; i < strActivityDisplayLog.GetSize(); i++) {
 				m_Activity_log.Append(strActivityDisplayLog.GetAt(i) + L"\r" + "\n");
 			}
@@ -289,11 +289,13 @@ bool CMFCApplication911centerDlg::emergencyUnits(){
 	return false;
 }
 
-bool CMFCApplication911centerDlg::CloseEvent(){
-
-	return false;
+void CMFCApplication911centerDlg::CloseEvent(){
+	strActivityDisplayLog.Add(L"***********************CLOSED********************");
+	strActivityDisplayLog.Add(L"-------------------------------------------------------------------------");
+	strActivityDisplayLog.Add(L"-------------------------------------------------------------------------");
 }
 
+// checking who is answer to the emergency and add him into the activity 
 void CMFCApplication911centerDlg::HandleEvent(CString eventStr){
 	int index = 0;
 	if (!PoliceOnShift && !ParamedicOnShift && !FireFighterOnShift) {
@@ -340,8 +342,7 @@ void CMFCApplication911centerDlg::HandleEvent(CString eventStr){
 			while (arrOfEmployee[index]->getKind() != FIREFIGHTER) {
 				index++;
 			}
-			strActivityDisplayLog.Add(L"FireFighter " + arrOfEmployee[index]->getName() + L" Answered the call !");
-		
+			strActivityDisplayLog.Add(L"FireFighter " + arrOfEmployee[index]->getName() + L" Answered the call !");	
 	}
 
 }
