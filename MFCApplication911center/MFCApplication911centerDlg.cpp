@@ -105,6 +105,13 @@ void CMFCApplication911centerDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EMPLOYEE_ADDRESS, m_EmployeeAddress);
 	DDX_Control(pDX, IDC_EMPLOYEE_ON_SHIFT, c_EmployeeOnShift);
 	DDX_Text(pDX, IDC_EMPLOYEE_ON_SHIFT, m_EmployeeOnShift);
+	DDX_Control(pDX, IDC_RADIO_POLICE, m_radioPolice);
+	DDX_Control(pDX, IDC_RADIO_FIREMAN, c_radioFireFrighter);
+	DDX_Control(pDX, IDC_RADIO_PARAMEDIC, c_radioParamedic);
+	DDX_Control(pDX, IDC_RADIO3, c_EmployeeMale);
+	DDX_Control(pDX, IDC_RADIO4, c_EmployeeFemale);
+	DDX_Control(pDX, IDC_RADIO1, c_radioClientMale);
+	DDX_Control(pDX, IDC_RADIO2, c_radioClientFemale);
 }
 
 BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
@@ -350,6 +357,9 @@ void CMFCApplication911centerDlg::clearTextBoxOfClient(){
      m_ClientAddress.SetString(_T(""));	
 	 m_ClientPhone.SetString(_T(""));
 	 m_ClientGender.SetString(_T(""));
+	 //uncheck radio buttons
+	 c_radioClientFemale.SetCheck(BST_UNCHECKED);
+	 c_radioClientMale.SetCheck(BST_UNCHECKED);
 }
 
 void CMFCApplication911centerDlg::clearTextBoxOfEmployee(){
@@ -360,6 +370,13 @@ void CMFCApplication911centerDlg::clearTextBoxOfEmployee(){
 		 m_EmployeeJob.SetString(_T(""));
 		 m_EmployeePhone.SetString(_T(""));
 		 m_EmployeeAddress.SetString(_T(""));
+
+		 // uncheck all radio buttons of employee 
+		 m_radioPolice.SetCheck(BST_UNCHECKED);
+		 c_radioFireFrighter.SetCheck(BST_UNCHECKED);
+		 c_radioParamedic.SetCheck(BST_UNCHECKED);
+		 c_EmployeeMale.SetCheck(BST_UNCHECKED);
+		 c_EmployeeFemale.SetCheck(BST_UNCHECKED);
 }
 
 bool CMFCApplication911centerDlg::isTextFieldsOfEmployeeFull(){

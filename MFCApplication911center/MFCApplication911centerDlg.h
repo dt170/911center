@@ -107,4 +107,11 @@ public:
 	CString m_EmployeeOnShift;
 	vector<Employee*> arrOfEmployee;
 	afx_msg void OnBnClickedEmployeeButtonAdd();
+	CButton m_radioPolice;
+	CButton c_radioFireFrighter;
+	CButton c_radioParamedic;
+	CButton c_EmployeeMale;
+	CButton c_EmployeeFemale;
+	CButton c_radioClientMale;
+	CButton c_radioClientFemale;
 };
