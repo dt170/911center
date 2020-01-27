@@ -123,4 +123,5 @@ public:
 	CButton c_radioClientFemale;
 	afx_msg void OnBnClickedButtonSaveFile();
 	afx_msg void OnBnClickedButtonLoadFile();
+	afx_msg void OnBnClickedButtonClearActivityLog();
 };

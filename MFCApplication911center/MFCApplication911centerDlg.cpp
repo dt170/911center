@@ -131,6 +131,7 @@ BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_EMPLOYEE_BUTTON_ADD, &CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd)
 	ON_BN_CLICKED(IDC_BUTTON3, &CMFCApplication911centerDlg::OnBnClickedButtonSaveFile)
 	ON_BN_CLICKED(IDC_BUTTON4, &CMFCApplication911centerDlg::OnBnClickedButtonLoadFile)
+	ON_BN_CLICKED(IDC_BUTTON5, &CMFCApplication911centerDlg::OnBnClickedButtonClearActivityLog)
 END_MESSAGE_MAP()
 
 
@@ -519,6 +520,7 @@ void CMFCApplication911centerDlg::OnBnClickedButtonLoadFile(){
 	CArchive ar(&file, CArchive::load);
 
 	arrOfEmployee.clear();
+	employeeNumber = 0;
 	int size;
 	ar >> size;
 	int tempPhone,kindOfObject;
@@ -535,16 +537,13 @@ void CMFCApplication911centerDlg::OnBnClickedButtonLoadFile(){
 		switch (kindOfObject)
 		{
 		case POLICE:
-			m_EmployeeJob = "Police";
-			//arrOfEmployee.push_back(new Policeman(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, tempPhone, POLICE));
+			m_EmployeeJob = "Police";	
 			break;
 		case PARAMEDIC:
 			m_EmployeeJob = "Paramedic";
-		//	arrOfEmployee.push_back(new Paramedic(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, tempPhone, PARAMEDIC));
 			break;
 		case FIREFIGHTER:
 			m_EmployeeJob = "FireFighter";
-		//	arrOfEmployee.push_back(new FireFighter(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, tempPhone, FIREFIGHTER));
 			break;
 		}
 		loadFlag = true;
@@ -556,4 +555,12 @@ void CMFCApplication911centerDlg::OnBnClickedButtonLoadFile(){
 	file.Close();
 	Invalidate();
 
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedButtonClearActivityLog(){
+	strActivityDisplayLog.RemoveAll();
+	m_Activity_log.SetString(_T(""));
+	UpdateData(FALSE);
+	m_comboBoxControlEmergency.SetCurSel(-1);// reset the combo box to default 
 }
