@@ -243,7 +243,6 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 			strActivityDisplayLog.Add(L"Last Name: "+temp.getLastName());
 			strActivityDisplayLog.Add(L"Gender: "+temp.getGender());
 			strActivityDisplayLog.Add(L"Emergency: "+temp.getEmergency());
-		//	strActivityDisplayLog.Add(L"-------------------------------------------------------------------------");
 			strActivityDisplayLog.Add(L"*******************HANDLE-EVENT******************");
 			HandleEvent(temp.getEmergency());
 			CloseEvent();
@@ -254,7 +253,6 @@ void CMFCApplication911centerDlg::OnBnClickedCallerButtonStart(){
 		clearTextBoxOfClient();
 		UpdateData(FALSE); // clear all texts 
 		m_comboBoxControlEmergency.SetCurSel(-1);// reset the combo box to default 
-	
 }
 
 
