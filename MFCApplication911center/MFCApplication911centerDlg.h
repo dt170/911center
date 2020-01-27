@@ -97,6 +97,7 @@ private:
 	bool PoliceOnShift = false;
 	bool FireFighterOnShift = false;
 	bool ParamedicOnShift = false;
+	bool loadFlag = false;
 
 public:
 	CEdit c_EmployeeName;
@@ -120,4 +121,6 @@ public:
 	CButton c_EmployeeFemale;
 	CButton c_radioClientMale;
 	CButton c_radioClientFemale;
+	afx_msg void OnBnClickedButtonSaveFile();
+	afx_msg void OnBnClickedButtonLoadFile();
 };

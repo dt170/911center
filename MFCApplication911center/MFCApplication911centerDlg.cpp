@@ -129,6 +129,8 @@ BEGIN_MESSAGE_MAP(CMFCApplication911centerDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_RADIO3, &CMFCApplication911centerDlg::OnBnClickedRadioEmployeeMale)
 	ON_BN_CLICKED(IDC_RADIO4, &CMFCApplication911centerDlg::OnBnClickedRadioEmployeeFemale)
 	ON_BN_CLICKED(IDC_EMPLOYEE_BUTTON_ADD, &CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd)
+	ON_BN_CLICKED(IDC_BUTTON3, &CMFCApplication911centerDlg::OnBnClickedButtonSaveFile)
+	ON_BN_CLICKED(IDC_BUTTON4, &CMFCApplication911centerDlg::OnBnClickedButtonLoadFile)
 END_MESSAGE_MAP()
 
 
@@ -438,13 +440,16 @@ void CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd(){
 	int phone = 0;
 
 	// get all texts from shift manager
-	c_EmployeeName.GetWindowTextW(m_EmployeeName);
-	c_EmployeeLastName.GetWindowTextW(m_EmployeeLastName);
-	c_EmployeeCity.GetWindowTextW(m_EmployeeCity);
-	c_EmployeeAddress.GetWindowTextW(m_EmployeeAddress);
-	c_EmployeePhone.GetWindowTextW(m_EmployeePhone);
-	c_EmployeeName.GetWindowTextW(m_EmployeeName);
-	phone = _tstoi(m_ClientPhone);
+	if (!loadFlag) {
+		c_EmployeeName.GetWindowTextW(m_EmployeeName);
+		c_EmployeeLastName.GetWindowTextW(m_EmployeeLastName);
+		c_EmployeeCity.GetWindowTextW(m_EmployeeCity);
+		c_EmployeeAddress.GetWindowTextW(m_EmployeeAddress);
+		c_EmployeePhone.GetWindowTextW(m_EmployeePhone);
+		c_EmployeeName.GetWindowTextW(m_EmployeeName);
+		phone = _tstoi(m_EmployeePhone);
+	
+	}
 
 	if (!isTextFieldsOfEmployeeFull()) {
 		m_EmployeeOnShift.SetString(L"Error! make sure to fill all the details!");
@@ -479,4 +484,76 @@ void CMFCApplication911centerDlg::OnBnClickedEmployeeButtonAdd(){
 	clearTextBoxOfEmployee();
 	UpdateData(FALSE);
 	m_comboBoxControlEmergency.SetCurSel(-1); // reset the combo box to default 
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedButtonSaveFile()
+{
+	//UpdateData(TRUE);
+	// TODO: Add your control notification handler code here
+	CFile file;
+	file.Open(L"EmployeeInfo.hse", CFile::modeCreate | CFile::modeWrite);
+	CArchive ar(&file, CArchive::store);
+	int size = arrOfEmployee.size();
+	ar << size;
+	for (int i = 0; i < size; i++)
+	{
+		ar << arrOfEmployee[i]->getName();
+		ar << arrOfEmployee[i]->getLastName();
+		ar << arrOfEmployee[i]->getGender();
+		ar << arrOfEmployee[i]->getAddress();
+		ar << arrOfEmployee[i]->getCity();
+		ar << arrOfEmployee[i]->getPhone();
+		ar << arrOfEmployee[i]->getKind();
+	}
+
+	ar.Close();
+	file.Close();
+
+}
+
+
+void CMFCApplication911centerDlg::OnBnClickedButtonLoadFile(){
+	CFile file;
+	file.Open(L"EmployeeInfo.hse", CFile::modeRead);
+	CArchive ar(&file, CArchive::load);
+
+	arrOfEmployee.clear();
+	int size;
+	ar >> size;
+	int tempPhone,kindOfObject;
+	for (int i = 0; i < size; i++)
+	{
+		ar >> m_EmployeeName;
+		ar >> m_EmployeeLastName;
+		ar >> m_EmployeeGender;
+		ar >> m_EmployeeAddress;
+		ar >> m_EmployeeCity;
+		ar >> tempPhone;
+		ar >> kindOfObject;
+		m_EmployeePhone.Format(L"%d", tempPhone);
+		switch (kindOfObject)
+		{
+		case POLICE:
+			m_EmployeeJob = "Police";
+			//arrOfEmployee.push_back(new Policeman(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, tempPhone, POLICE));
+			break;
+		case PARAMEDIC:
+			m_EmployeeJob = "Paramedic";
+		//	arrOfEmployee.push_back(new Paramedic(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, tempPhone, PARAMEDIC));
+			break;
+		case FIREFIGHTER:
+			m_EmployeeJob = "FireFighter";
+		//	arrOfEmployee.push_back(new FireFighter(m_EmployeeName, m_EmployeeLastName, m_EmployeeGender, m_EmployeeAddress, m_EmployeeCity, tempPhone, FIREFIGHTER));
+			break;
+		}
+		loadFlag = true;
+		OnBnClickedEmployeeButtonAdd();
+		loadFlag = false;
+	}
+	//// TODO: Add your control notification handler code here
+	ar.Close();
+	file.Close();
+	Invalidate();
+
 }

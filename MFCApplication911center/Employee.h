@@ -15,6 +15,7 @@ public:
 	CString getAddress()const;
 	CString getCity()const;
 	int getKind()const;
+	int getPhone()const;
 protected:
 	CString address, city, job;
 	int phone;

@@ -46,3 +46,8 @@ int Employee::getKind() const
 {
 	return kind;
 }
+
+int Employee::getPhone() const
+{
+	return phone;
+}
