@@ -55,11 +55,16 @@ public:
 	afx_msg void OnBnClickedRadioParamedic();
 	afx_msg void OnBnClickedRadioEmployeeMale();
 	afx_msg void OnBnClickedRadioEmployeeFemale();
+	afx_msg void OnBnClickedEmployeeButtonAdd();
+	afx_msg void OnBnClickedButtonSaveFile();
+	afx_msg void OnBnClickedButtonLoadFile();
+	afx_msg void OnBnClickedButtonClearActivityLog();
 
 	void clearTextBoxOfClient();
 	void clearTextBoxOfEmployee();
 	bool isTextFieldsOfEmployeeFull();
 	bool isTextFieldsOfClientFull();
+
 	// Inherited via Event
 	virtual bool openEvent();
 	virtual void CloseEvent();
@@ -83,23 +88,11 @@ public:
 	CEdit c_clientCity;
 	CEdit c_ClientPhone;
 	CEdit c_ClientAddress;
-
+	CButton c_radioClientMale;
+	CButton c_radioClientFemale;
+	//employee
 	CString m_EmployeeJob;
 	CString m_EmployeeGender;
-
-	//afx_msg void HandleEmergency(Client *temp);
-	CString m_Activity_log;
-	CArray <CString, CString> strActivityDisplayLog;
-	CArray <CString, CString> strOnShiftDisplay;
-private:
-	int clientsNumber=0;
-	int employeeNumber=0;
-	bool PoliceOnShift = false;
-	bool FireFighterOnShift = false;
-	bool ParamedicOnShift = false;
-	bool loadFlag = false;
-
-public:
 	CEdit c_EmployeeName;
 	CString m_EmployeeName;
 	CEdit c_EmployeeLastName;
@@ -113,15 +106,24 @@ public:
 	CEdit c_EmployeeOnShift;
 	CString m_EmployeeOnShift;
 	vector<Employee*> arrOfEmployee;
-	afx_msg void OnBnClickedEmployeeButtonAdd();
+
 	CButton m_radioPolice;
 	CButton c_radioFireFrighter;
 	CButton c_radioParamedic;
 	CButton c_EmployeeMale;
 	CButton c_EmployeeFemale;
-	CButton c_radioClientMale;
-	CButton c_radioClientFemale;
-	afx_msg void OnBnClickedButtonSaveFile();
-	afx_msg void OnBnClickedButtonLoadFile();
-	afx_msg void OnBnClickedButtonClearActivityLog();
+
+	// handle activity log and on shift 
+	CString m_Activity_log;
+	CArray <CString, CString> strActivityDisplayLog;
+	CArray <CString, CString> strOnShiftDisplay;
+
+private:
+	int clientsNumber=0;
+	int employeeNumber=0;
+	bool PoliceOnShift = false;
+	bool FireFighterOnShift = false;
+	bool ParamedicOnShift = false;
+	bool loadFlag = false;
+
 };
