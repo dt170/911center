@@ -13,10 +13,12 @@
 MFC application that simulate 911 center (caller) , 
 The user must add employees (firefighter,policeman,paramedic) into the shift manager before openning any events. 
 Once there are at least one of each employee types the user can fill event form ,
-each event handle by the necessary employee .
+each event handle by the necessary employee . 
+For example : Car crash will call firefigther , policeman and paramedic on the scene.
 
 <h3>Classes</h3>
 
 * Base class : Person -> client(caller) & employee -> FireFighter,Policeman,Paramedic . 
 * Event is pure virtual 
 
+<h3>Images</h3>
