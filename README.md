@@ -1,4 +1,4 @@
-<h1> MFC project for OOP course</h1>
+<h1> MFC project for OOP course (Grade 100)</h1>
 <h3>Project requirements:</h3>
 
 * Using object oriented programing  with classes 
