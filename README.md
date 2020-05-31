@@ -23,11 +23,7 @@ For example : Car crash will call firefigther , policeman and paramedic on the s
 
 <h3>Images</h3>
 
-<h5>Main activity</h5>
-
-<img src="https://github.com/dt170/MFCApplication911center/blob/master/Capture1.PNG">
-
-<h5>Adding employees</h5>
+<h5>Adding employees & caller information</h5>
 
 <img src="https://github.com/dt170/MFCApplication911center/blob/master/Capture2.PNG">
 
