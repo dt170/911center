@@ -41,3 +41,9 @@ CString Person::getName() const
 {
 	return name;
 }
+
+CString Person::handleEvent()
+{
+	CString temp = L"";
+	return temp;
+}

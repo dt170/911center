@@ -16,8 +16,13 @@ public:
 	CString getCity()const;
 	int getKind()const;
 	int getPhone()const;
+	CString handleEvent()
+	{
+		CString temp = L"Employee";
+		return temp;
+	}
 protected:
-	CString address, city, job;
+	CString address, city, job,eventEmergency;
 	int phone;
 	int kind;
 

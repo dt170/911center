@@ -16,6 +16,7 @@ public:
 	CString getLastName()const;
 	CString getGender()const;
 	CString getName()const;
+	virtual CString handleEvent();
 
 protected:
 	CString name, lastname;

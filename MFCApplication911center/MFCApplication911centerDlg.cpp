@@ -303,43 +303,44 @@ void CMFCApplication911centerDlg::HandleEvent(CString eventStr){
 			while (arrOfEmployee[index]->getKind() != POLICE) {
 				index++;
 			}
-			strActivityDisplayLog.Add(L"Officer " + arrOfEmployee[index]->getName() + L" Answered the call !");
+			strActivityDisplayLog.Add(arrOfEmployee[index]->handleEvent());
 		}
 	else if (eventStr == "Fire"| eventStr =="Animal Rescue" | eventStr=="Smoke in a building") {
 		while (arrOfEmployee[index]->getKind() != FIREFIGHTER) {
 			index++;
 		}
-		strActivityDisplayLog.Add(L"FireFighter " + arrOfEmployee[index]->getName() + L" Answered the call !");
+		strActivityDisplayLog.Add(arrOfEmployee[index]->handleEvent());
 	}
 	else if (eventStr == "Event with casualties" | eventStr == "Injurie") {
 		while (arrOfEmployee[index]->getKind() != PARAMEDIC) {
 			index++;
 		}
-		strActivityDisplayLog.Add(L"Paramedic " + arrOfEmployee[index]->getName() + L" Answered the call !");
+
+		strActivityDisplayLog.Add(arrOfEmployee[index]->handleEvent());
 		if (eventStr == "Event with casualties") {
 			index = 0;
 			while (arrOfEmployee[index]->getKind() != POLICE) {
 				index++;
 			}
-			strActivityDisplayLog.Add(L"Officer " + arrOfEmployee[index]->getName() + L" Answered the call !");
+			strActivityDisplayLog.Add(arrOfEmployee[index]->handleEvent());
 		}
 	}
 	else if (eventStr == "Car crash") {
 		while (arrOfEmployee[index]->getKind() != PARAMEDIC) {
 			index++;
 		}
-		strActivityDisplayLog.Add(L"Paramedic " + arrOfEmployee[index]->getName() + L" Answered the call !");
+		strActivityDisplayLog.Add(arrOfEmployee[index]->handleEvent());
 			index = 0;
 			while (arrOfEmployee[index]->getKind() != POLICE) {
 				index++;
 			}
-			strActivityDisplayLog.Add(L"Officer " + arrOfEmployee[index]->getName() + L" Answered the call !");
+			strActivityDisplayLog.Add(arrOfEmployee[index]->handleEvent());
 
 			index = 0;
 			while (arrOfEmployee[index]->getKind() != FIREFIGHTER) {
 				index++;
 			}
-			strActivityDisplayLog.Add(L"FireFighter " + arrOfEmployee[index]->getName() + L" Answered the call !");	
+			strActivityDisplayLog.Add(arrOfEmployee[index]->handleEvent());
 	}
 
 }

@@ -5,3 +5,5 @@ FireFighter::FireFighter(CString name, CString lastname, CString gender, CString
 
 
 }
+
+
